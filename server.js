@@ -11,7 +11,8 @@ app.use(cors());
 app.use(express.json());
 
 // Database connection
-const dbURI = process.env.MONGODB_URL;
+const dbURI = process.env.MONGODB_URI || "mongodb://localhost:27017/mydatabase";
+// For local development, you can also use a local MongoDB URI
 mongoose
   .connect(dbURI)
   .then(() => console.log("Connected to MongoDB"))
