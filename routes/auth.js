@@ -52,6 +52,8 @@ router.post("/login", async (req, res) => {
 
 // Forgot Password
 router.post("/forgot-password", async (req, res) => {
+  const frontendBaseUrl =
+    process.env.FRONTEND_BASE_URL || "http://localhost:3000";
   try {
     const { email } = req.body;
 
@@ -81,9 +83,9 @@ router.post("/forgot-password", async (req, res) => {
       from: process.env.EMAIL_FROM,
       subject: "Password Reset",
       text: `You are receiving this because you requested a password reset.\n\n
-        Please click on the following link, or paste this into your browser to complete the process:\n\n
-        http://${req.headers.host}/reset-password/${token}\n\n
-        If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+      Please click the following link or paste it into your browser:\n\n
+      ${frontendBaseUrl}/reset-password/${token}\n\n
+      If you did not request this, please ignore it.`,
     };
 
     await transporter.sendMail(mailOptions);
