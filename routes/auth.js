@@ -52,8 +52,7 @@ router.post("/login", async (req, res) => {
 
 // Forgot Password
 router.post("/forgot-password", async (req, res) => {
-  const frontendBaseUrl =
-    process.env.FRONTEND_BASE_URL || "http://localhost:3000";
+  const frontendBaseUrl = process.env.FRONTEND_BASE_URL;
   try {
     const { email } = req.body;
 
