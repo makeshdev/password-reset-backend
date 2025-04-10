@@ -9,9 +9,17 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: "*",
+    origin: [
+      "https://password-reset-frontend-ten.vercel.app",
+      "http://localhost:3000",
+      "https://www.postman.com",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // If you're using cookies or any credentials
   })
 );
+
 app.use(express.json());
 // Database connection
 const dbURI = process.env.MONGODB_URI || "mongodb://localhost:27017/mydatabase";
