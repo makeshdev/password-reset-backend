@@ -2,17 +2,19 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const authRoutes = require("./routes/authRoutes");
+const authRoutes = require("./routes/auth");
 
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(express.json());
-
 // Database connection
 const dbURI = process.env.MONGODB_URI || "mongodb://localhost:27017/mydatabase";
-// For local development, you can also use a local MongoDB URI
 mongoose
   .connect(dbURI)
   .then(() => console.log("Connected to MongoDB"))
