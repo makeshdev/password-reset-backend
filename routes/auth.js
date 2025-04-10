@@ -70,14 +70,14 @@ router.post("/forgot-password", async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
 
     const mailOptions = {
       to: user.email,
-      from: process.env.EMAIL_USER,
+      from: process.env.EMAIL_FROM,
       subject: "Password Reset",
       text: `You are receiving this because you requested a password reset.\n\n
         Please click on the following link, or paste this into your browser to complete the process:\n\n
@@ -89,6 +89,7 @@ router.post("/forgot-password", async (req, res) => {
 
     res.json({ message: "Password reset email sent" });
   } catch (error) {
+    console.error("Forgot password error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
